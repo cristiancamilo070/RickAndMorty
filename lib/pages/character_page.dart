@@ -58,13 +58,7 @@ class _CharacterPage extends State<CharacterPage> {
               initialData: character,
               builder: (BuildContext context, AsyncSnapshot snapshot){
                 return CharacterInfo(characters: character!.results, url: url);
-                // ListView.builder (
-                //   itemCount: character!.results.length,
-                //   itemBuilder: (BuildContext context, int index){
-                //     return //Card( child:  ListTileWidget(title: character!.results[index].name.toString(), subtitle: character!.results[index].id.toString()));
-                //     CharacterInfo(characters: character!.results, url: url);
-                //   },
-                // );
+                
               }
             ),
         ),

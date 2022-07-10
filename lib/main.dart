@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rickandmorty/pages/character_page.dart';
-import 'package:rickandmorty/pages/locations_page.dart';
 
 void main() => runApp(const MyApp());
 //final main so far
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home:  CharacterPage(),
+      home:  const CharacterPage(),
     );
   }
 }

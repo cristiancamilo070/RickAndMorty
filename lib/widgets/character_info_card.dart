@@ -22,12 +22,15 @@ class CharacterInfoCard extends StatelessWidget {
     return Material(
         child: Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
+              backgroundColor: const Color(0xFF2F4368),
               centerTitle: true,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: RoundedStatus(index: index, data: character),
+                  ),
                   Text(
                     character[index].name,
                     style: const TextStyle(
@@ -35,25 +38,21 @@ class CharacterInfoCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
-                    child: RoundedStatus(index: index, data: character),
-                  ),
+                  
                 ],
               ),
             ),
-            backgroundColor: const Color(0xFF24282f),
-            body: width < 600
-                ? Center(
+           // backgroundColor: const Color(0xFFBB9981).withOpacity(),
+            body: Center(
                     child: ConstrainedBox(
                         constraints:
                             BoxConstraints(maxHeight: height, maxWidth: width),
                         child: Card(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
-                            color: const Color(0xFF3c3e44),
+                            color: const Color(0xFF2F4368).withOpacity(1),
                             child: Padding(
-                                padding: const EdgeInsets.all(20.0),
+                                padding: const EdgeInsets.all(30.0),
                                 child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -62,8 +61,6 @@ class CharacterInfoCard extends StatelessWidget {
                                     children: [
                                       Center(
                                           child: ClipOval(
-                                        // borderRadius: const BorderRadius.all(
-                                        //     Radius.circular(20)),
                                         child: Image.network(
                                             character[index].image),
                                       )),
@@ -77,39 +74,14 @@ class CharacterInfoCard extends StatelessWidget {
                                         title: 'Gender',
                                         subtitle: character[index].gender,
                                       ),
+                                      ListTileWidget(
+                                      title: 'Last known location:',
+                                      subtitle: character[index].location.name),
+                                  ListTileWidget(
+                                      title: 'Origin',
+                                      subtitle: character[index].origin.name)
                                     ])))))
-                : Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    color: const Color(0xFF3c3e44),
-                    child: Row(
-                      children: [
-                        ClipRRect(
-                            borderRadius: const BorderRadius.horizontal(
-                                left: Radius.circular(20)),
-                            child: Image.network(character[index].image)),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ListTileWidget(
-                                    paddingI: 4,
-                                    title: 'Status',
-                                    subtitle: character[index].status),
-                                ListTileWidget(
-                                    paddingI: 4,
-                                    title: 'Species',
-                                    subtitle: character[index].species),
-                                ListTileWidget(
-                                  paddingI: 4,
-                                  title: 'Gender',
-                                  subtitle: character[index].gender,
-                                ),
-                              ]),
-                        ),
-                      ],
-                    ))));
+                
+                    ));
   }
 }

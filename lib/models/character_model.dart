@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:rickandmorty/models/location_model.dart';
+
 CharacterModel characterModelFromJson(String str) => CharacterModel.fromJson(json.decode(str));
 
 String characterModelToJson(CharacterModel data) => json.encode(data.toJson());
@@ -64,6 +66,8 @@ class CharacterModel {
     required this.species,
     required this.type,
     required this.gender,
+    required this.origin,
+    required this.location,
     required this.image,
     required this.episode,
     required this.url,
@@ -76,6 +80,8 @@ class CharacterModel {
   String species;
   String type;
   String gender;
+  LocationModel origin;
+  LocationModel location;
   String image;
   List<String> episode;
   String url;
@@ -88,7 +94,8 @@ class CharacterModel {
         species: json["species"],
         type: json["type"],
         gender: json["gender"],
-
+        origin: LocationModel.fromJson(json["origin"] ?? ''),
+        location: LocationModel.fromJson(json["location"] ?? ''),
         image: json["image"] ?? '',
         episode: List<String>.from(json["episode"].map((x) => x)),
         url: json["url"],
@@ -102,6 +109,8 @@ class CharacterModel {
         "species": species,
         "type": type,
         "gender": gender,
+        "origin": origin.toJson(),
+        "location": location.toJson(),
         "image": image,
         "episode": List<dynamic>.from(episode.map((x) => x)),
         "url": url,

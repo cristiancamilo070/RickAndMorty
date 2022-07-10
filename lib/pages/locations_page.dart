@@ -8,7 +8,7 @@ Location? location;
 int? index;
 
 class LocationPage extends StatefulWidget {
-  LocationPage({Key? key}) : super(key: key);
+  const LocationPage({Key? key}) : super(key: key);
 
   @override
   State<LocationPage> createState() => _LocationPageState();
@@ -31,7 +31,6 @@ Future<Location> requestLocation() async {
 
 @override
   void initState() {
-    print(requestLocation());
     super.initState();
   }
 

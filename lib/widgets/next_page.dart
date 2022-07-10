@@ -23,7 +23,7 @@ class NextPage extends StatelessWidget {
 
   nextButton(context) {
     return IconButton(
-      tooltip: 'Next',
+      tooltip: 'Siguiente Página',
       icon: const Icon(
         Icons.arrow_forward_sharp,
         color: Colors.white,

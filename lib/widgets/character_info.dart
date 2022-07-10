@@ -3,6 +3,8 @@ import 'package:rickandmorty/models/character_model.dart';
 import 'package:rickandmorty/widgets/next_page.dart';
 import 'package:rickandmorty/widgets/rounded_status.dart';
 import 'character_info_card.dart';
+import 'package:favorite_button/favorite_button.dart';
+
 
 class CharacterInfo extends StatelessWidget {
   const CharacterInfo({Key? key, required this.characters, required this.url})
@@ -19,7 +21,10 @@ class CharacterInfo extends StatelessWidget {
     return Scaffold(
       
         appBar: AppBar(
-          backgroundColor: const Color(0xFF24282f),
+          title: const Text('Rick & Morty', style: TextStyle(color: Colors.white),),
+          elevation: 3,
+          centerTitle: true,
+          backgroundColor: const Color(0xFF2F4368),
           actions: [
             NextPage(
               url: url,
@@ -31,8 +36,6 @@ class CharacterInfo extends StatelessWidget {
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 580,
               childAspectRatio: 5 / 3,
-              // mainAxisSpacing: 20,
-              crossAxisSpacing: 10,
             ),
             children: <Widget>[
               for (var i = 0; i < data.length; i++)
@@ -44,9 +47,7 @@ class CharacterInfo extends StatelessWidget {
 Widget infoCharacter(context, i, data) {
   List<CharacterModel> characters = data;
   return Container(
-    decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)
-        // color: Colors.red,
-        ),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
     child: GestureDetector(
       onTap: () {
         Navigator.push(
@@ -62,14 +63,14 @@ Widget infoCharacter(context, i, data) {
               constraints: const BoxConstraints(minHeight: 300, minWidth: 550),
               child: Card(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  color: const Color(0xFF3c3e44),
+                      borderRadius: BorderRadius.circular(30)),
+                  color: const Color(0xFF2F4368).withOpacity(0.9),
                   child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ClipRRect(
                           borderRadius: const BorderRadius.horizontal(
-                            left: Radius.circular(15),
+                            right: Radius.circular(180)
                           ),
                           child: Image.network(
                             characters[i].image,
@@ -89,29 +90,36 @@ Widget infoCharacter(context, i, data) {
                                         Text(
                                           characters[i].name,
                                           style: const TextStyle(
-                                              fontSize: 25,
+                                              fontSize: 29,
                                               fontWeight: FontWeight.w800,
                                               color: Colors.white),
                                         ),
                                         Row(children: [
-                                          RoundedStatus(
-                                              index: i, data: characters),
-                                          // roundedStatus(context,
-                                          //     i, state),
+                                          RoundedStatus(index: i, data: characters),
                                           Padding(
                                               padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                characters[i].status +
-                                                    ' - ' +
-                                                    characters[i].species,
+                                              const EdgeInsets.all(8.0),
+                                              child: Text(characters[i].status +' - ' +characters[i].species,
                                                 style: const TextStyle(
-                                                    color: Colors.white),
+                                                    color: Colors.white,
+                                                    fontSize: 23
+                                                    ),
                                               ))
-                                        ])
-                                      ]),
-                                ]))
-                      ])))),
+                                        ]),
+                                          StarButton(valueChanged: (_isFavorite) {
+                                            
+                                            print('Is Favorite :'+characters[i].name+' $_isFavorite');
+                                          } )
+                                      ]
+                                  ),
+                                ]
+                              )
+                          )
+                        ]
+                      )
+                    )
+                  )
+                ),
     ),
   );
 }

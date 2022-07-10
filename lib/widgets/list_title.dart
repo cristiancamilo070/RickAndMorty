@@ -16,21 +16,27 @@ class ListTileWidget extends StatelessWidget {
   }
 
   listTile(title, subtitle) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-        padding: EdgeInsets.only(top: paddingI, bottom: 4.0),
-        child: Text(
-          title,
-          style: const TextStyle(color: Color(0xFF9e9e9e)),
+    return Center(
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Center(
+          child: Padding(
+            padding: EdgeInsets.only(top: paddingI, bottom: 2.0),
+            child: Text(
+              title,
+              style: const TextStyle(color:Colors.white,fontSize: 23,fontWeight: FontWeight.bold),
+            ),
+          ),
         ),
-      ),
-      Padding(
-        padding: EdgeInsets.only(bottom: paddingI, top: 4),
-        child: Text(
-          subtitle,
-          style: const TextStyle(color: Colors.white, fontSize: 18),
-        ),
-      )
-    ]);
+        Center(
+          child: Padding(
+            padding: EdgeInsets.only(bottom: paddingI, top: 2),
+            child: Text(
+              subtitle,
+              style: const TextStyle(color: Colors.white, fontSize: 15),
+            ),
+          ),
+        )
+      ]),
+    );
   }
 }

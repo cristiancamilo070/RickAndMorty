@@ -15,21 +15,21 @@ class RoundedStatus extends StatelessWidget {
       return const Icon(
         Icons.circle,
         color: Colors.red,
-        size: 15,
+        size: 20,
         semanticLabel: 'dead',
       );
     } else if (data[index].status == 'Alive') {
       return const Icon(
         Icons.circle,
         color: Colors.green,
-        size: 15,
+        size: 20,
         semanticLabel: 'alive',
       );
     } else {
       return const Icon(
         Icons.circle,
         color: Colors.yellow,
-        size: 15,
+        size: 20,
         semanticLabel: 'unknown',
       );
     }
