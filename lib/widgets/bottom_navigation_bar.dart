@@ -16,14 +16,20 @@ class CustomNavigationBar extends StatelessWidget {
     return BottomNavigationBar(
       onTap: (int i)=>uiProvider.selectedMenuOpt = i,
       currentIndex: currentIndex,
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white54,
+      selectedIconTheme: IconThemeData(size: 24),
+      backgroundColor: Color(0xFF2F4368),
+      elevation: 3,
       items: <BottomNavigationBarItem>[
+
         BottomNavigationBarItem(
           icon:Icon(Icons.person),
           label: 'Characters'
         ),
         BottomNavigationBarItem(
           icon:Icon(Icons.map_rounded),
-          label: 'Locations'
+          label: 'Locations',
         )
       ],
     );

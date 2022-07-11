@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
           'locations'   :(_)=>const LocationPage()
         },
         theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
+          primarySwatch: Colors.blue,
+          backgroundColor: Colors.white
         ),
          ),
      );

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:rickandmorty/models/location_model.dart';
-import 'package:rickandmorty/widgets/location_info.dart';
+import 'package:rickandmorty/widgets/locations/location_info.dart';
 
 
 int? index;
@@ -45,7 +45,24 @@ Future<Location> requestLocation() async {
     return Scaffold(
       body: Center(
         child: Container(
-          child: location==null           ?        const Text("Data is loading"): 
+          child: location==null           ?        
+          Scaffold(
+           appBar: AppBar(
+          title: const Text('Cargando datos', style: TextStyle(color: Colors.white),),
+          elevation: 3,
+          centerTitle: true,
+          backgroundColor: const Color(0xFF2F4368),
+        ),
+            body:Center(
+                child: Image.asset(
+                       'assets/rickmorty.jpg',
+                        fit: BoxFit.contain,
+                        height: 270,
+                    ),
+              ),
+            
+          )
+          : 
             FutureBuilder (
               future: requestLocation(),
               initialData: location,

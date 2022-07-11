@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:rickandmorty/models/character_model.dart';
-import 'package:rickandmorty/widgets/character_info.dart';
+import 'package:rickandmorty/widgets/bottom_navigation_bar.dart';
+import 'package:rickandmorty/widgets/characters/character_info.dart';
 
 int? index;
 
@@ -49,7 +50,23 @@ class _CharacterPage extends State<CharacterPage> {
     return Scaffold(
       body: Center(
         child: Container(
-          child: character==null           ?        const Text("Data is loading"): 
+          child: character==null ?       
+           Scaffold(
+           appBar: AppBar(
+          title: const Text('Cargando datos', style: TextStyle(color: Colors.white),),
+          elevation: 3,
+          centerTitle: true,
+          backgroundColor: const Color(0xFF2F4368),
+        ),
+            body: Center(
+              child: Image.asset(
+                   'assets/rickmorty.jpg',
+                    fit: BoxFit.contain,
+                    height: 270,
+                ),
+            ))
+           : 
+
             FutureBuilder (
               future: requestCharacter(),
               initialData: character,
@@ -60,6 +77,8 @@ class _CharacterPage extends State<CharacterPage> {
             ),
         ),
       ),
+     // bottomNavigationBar:   const CustomNavigationBar(),
     );
+    
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rickandmorty/models/character_model.dart';
-import 'package:rickandmorty/pages/character_page.dart';
-import 'package:rickandmorty/widgets/next_page.dart';
-import 'package:rickandmorty/widgets/rounded_status.dart';
+import 'package:rickandmorty/widgets/characters/next_page.dart';
+import 'package:rickandmorty/widgets/characters/rounded_status.dart';
+import '../bottom_navigation_bar.dart';
 import 'character_info_card.dart';
 import 'package:favorite_button/favorite_button.dart';
 
@@ -42,7 +42,10 @@ class CharacterInfo extends StatelessWidget {
             children: <Widget>[
               for (var i = 0; i < data.length; i++)
                 infoCharacter(context, i, data)
-            ]));
+            ]
+            ),
+          );
+        
   }
 }
 
@@ -53,12 +56,15 @@ Widget infoCharacter(context, i, data) {
     child: GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => CharacterInfoCard(
-                      character: data,
-                      index: i,
-                    )));
+            context,    _transitionSlide(context,i,data)
+            // MaterialPageRoute(
+            //     builder: (context) => 
+            //     CharacterInfoCard(
+            //           character: data,
+            //           index: i,
+            //         )
+            //         )
+        );
       },
       child: FittedBox(
           child: ConstrainedBox(
@@ -116,16 +122,23 @@ Widget infoCharacter(context, i, data) {
                                         ),
 
                                           Padding(padding: const EdgeInsets.all(1.0),
-                                          child: Column(
+                                          child: Row(
                                             children: [
                                               const Divider(
-                                                indent: 100, //spacing at the start of divider
-                                                endIndent: 100, //spacing at the end of divider
+                                                indent: 30, //spacing at the start of divider
+                                                endIndent: 1, //spacing at the end of divider
+                                              ),
+                                              const Icon(Icons.remove_red_eye_outlined,size: 70,color: Colors.white,),
+
+                                              const Divider(
+                                                indent: 1, //spacing at the start of divider
+                                                endIndent: 30, //spacing at the end of divider
                                               ),
                                               StarButton(valueChanged: (_isFavorite) {
                                                 print('Is Favorite :'+characters[i].name+' $_isFavorite');
                                                 },
                                                 iconSize: 150,
+                                                iconDisabledColor:Colors.white,
                                               )
                                             ],
 
@@ -141,5 +154,26 @@ Widget infoCharacter(context, i, data) {
                   )
                 ),
     ),
+  );
+}
+
+Route _transitionSlide(context, i, data) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => CharacterInfoCard(
+                      character: data,
+                      index: i,
+                    ),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = const Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+ 
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+ 
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
   );
 }

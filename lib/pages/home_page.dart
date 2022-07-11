@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
     return const Scaffold(
       body:  _HomePageBody(),
       bottomNavigationBar:   CustomNavigationBar(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

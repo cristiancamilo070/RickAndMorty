@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rickandmorty/models/location_model.dart';
 
-import 'package:rickandmorty/widgets/location_info_card.dart';
+import 'package:rickandmorty/widgets/locations/location_info_card.dart';
 import 'package:favorite_button/favorite_button.dart';
-import 'package:rickandmorty/widgets/next_page_locations.dart';
-
+import 'package:rickandmorty/widgets/locations/next_page_locations.dart';
+import 'dart:math' as math;
 
 class LocationInfo extends StatelessWidget {
   const LocationInfo({Key? key, required this.locations, required this.url })
@@ -32,6 +32,7 @@ class LocationInfo extends StatelessWidget {
           ],
         ),
         body: GridView(
+
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 480,
               childAspectRatio: 3,
@@ -51,12 +52,12 @@ Widget infoLocationA(context, i, data) {
     child: GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => LocationInfoCard(
-                      location: data,
-                      index: i,
-                    )));
+           context,    _transitionSlide(context,i,data));
+            // MaterialPageRoute(
+            //     builder: (context) => LocationInfoCard(
+            //           location: data,
+            //           index: i,
+            //         )));
       },
       child: FittedBox(
           child: ConstrainedBox(
@@ -68,6 +69,23 @@ Widget infoLocationA(context, i, data) {
                   child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        
+                        ClipOval(
+                          child: Container(
+                            width: 250.0,
+                            height: 140.0,
+                            color:  Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(0.9),
+                            child: Center(
+                            child: Text(locations[i].id.toString(),
+                              style: const TextStyle(
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold
+                              ),
+                              
+                            )
+                            ),
+                          ),
+                                  ),
                         Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Column(
@@ -94,16 +112,23 @@ Widget infoLocationA(context, i, data) {
                                         ),
 
                                           Padding(padding: const EdgeInsets.all(1.0),
-                                          child: Column(
+                                          child: Row(
                                             children: [
                                               const Divider(
-                                                indent: 100, //spacing at the start of divider
-                                                endIndent: 100, //spacing at the end of divider
+                                                indent: 30, //spacing at the start of divider
+                                                endIndent: 1, //spacing at the end of divider
+                                              ),
+                                              const Icon(Icons.remove_red_eye_outlined,size: 70,color: Colors.white,),
+
+                                              const Divider(
+                                                indent: 1, //spacing at the start of divider
+                                                endIndent: 30, //spacing at the end of divider
                                               ),
                                               StarButton(valueChanged: (_isFavorite) {
                                                 print('Is Favorite :'+locations[i].name+' $_isFavorite');
                                                 },
                                                 iconSize: 150,
+                                                iconDisabledColor: Colors.white,
                                               )
                                             ],
 
@@ -119,5 +144,26 @@ Widget infoLocationA(context, i, data) {
                   )
                 ),
     ),
+  );
+}
+
+Route _transitionSlide(context, i, data) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => LocationInfoCard(
+                      location: data,
+                      index: i,
+                    ),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = const Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+ 
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+ 
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
   );
 }

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:rickandmorty/models/location_model.dart';
-import 'package:rickandmorty/widgets/location_info.dart';
+import 'package:rickandmorty/widgets/locations/location_info.dart';
 
 class NextPageLocations extends StatelessWidget {
   const NextPageLocations({

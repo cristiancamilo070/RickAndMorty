@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:rickandmorty/models/character_model.dart';
-import 'package:rickandmorty/widgets/rounded_status.dart';
+import 'package:rickandmorty/models/location_model.dart';
+import 'package:rickandmorty/widgets/characters/rounded_status.dart';
 
-import 'list_title.dart';
+import '../characters/list_title.dart';
 
-class CharacterInfoCard extends StatelessWidget {
-  const CharacterInfoCard(
-      {Key? key, required this.character, required this.index})
+class LocationInfoCard extends StatelessWidget {
+  const LocationInfoCard(
+      {Key? key, required this.location, required this.index})
       : super(key: key);
-  final List<CharacterModel> character;
+  final List<LocationModel> location;
   final int index;
   @override
   Widget build(BuildContext context) {
-    return infoCharacter(context, index);
+    return infoLocation(context, index);
   }
 
-  Widget infoCharacter(context, index) {
+  Widget infoLocation(context, index) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
@@ -27,12 +27,8 @@ class CharacterInfoCard extends StatelessWidget {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: RoundedStatus(index: index, data: character),
-                  ),
                   Text(
-                    character[index].name,
+                    location[index].name,
                     style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -61,26 +57,38 @@ class CharacterInfoCard extends StatelessWidget {
                                     children: [
                                       Center(
                                           child: ClipOval(
-                                        child: Image.network(
-                                            character[index].image),
-                                      )),
-                                      ListTileWidget(
-                                          title: 'Status',
-                                          subtitle: character[index].status),
-                                      ListTileWidget(
-                                          title: 'Species',
-                                          subtitle: character[index].species),
-                                      ListTileWidget(
-                                        title: 'Gender',
-                                        subtitle: character[index].gender,
-                                      ),
-                                      ListTileWidget(
-                                      title: 'Last known location:',
-                                      subtitle: character[index].location.name),
-                                  ListTileWidget(
-                                      title: 'Origin',
-                                      subtitle: character[index].origin.name)
-                                    ])))))
+                          child: Container(
+                            width: 250.0,
+                            height: 250.0,
+                            color: Colors.white,
+                            child: Center(
+                            child: Text("Id: "+location[index].id.toString(),
+                              style: const TextStyle(
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold
+                              ),
+                             )
+                            ),
+                          ),
+                        ),
+                      ),
+                    ListTileWidget(
+                        title: 'Name:',
+                        subtitle: location[index].name),
+                    ListTileWidget(
+                        title: 'Type: ',
+                        subtitle: location[index].type),
+                    ListTileWidget(
+                      title: 'Dimension:',
+                      subtitle: location[index].dimension,
+                    ),
+                                     
+                    ]
+                    )
+                  )
+                )
+              )
+            )
                 
                     ));
   }

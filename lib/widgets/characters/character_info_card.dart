@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:rickandmorty/models/location_model.dart';
-import 'package:rickandmorty/widgets/rounded_status.dart';
+import 'package:rickandmorty/models/character_model.dart';
+import 'package:rickandmorty/widgets/characters/rounded_status.dart';
 
 import 'list_title.dart';
 
-class LocationInfoCard extends StatelessWidget {
-  const LocationInfoCard(
-      {Key? key, required this.location, required this.index})
+class CharacterInfoCard extends StatelessWidget {
+  const CharacterInfoCard(
+      {Key? key, required this.character, required this.index})
       : super(key: key);
-  final List<LocationModel> location;
+  final List<CharacterModel> character;
   final int index;
   @override
   Widget build(BuildContext context) {
-    return infoLocation(context, index);
+    return infoCharacter(context, index);
   }
 
-  Widget infoLocation(context, index) {
+  Widget infoCharacter(context, index) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
@@ -29,10 +29,10 @@ class LocationInfoCard extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 10.0),
-                    child: RoundedStatus(index: index, data: location),
+                    child: RoundedStatus(index: index, data: character),
                   ),
                   Text(
-                    location[index].name,
+                    character[index].name,
                     style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -61,25 +61,26 @@ class LocationInfoCard extends StatelessWidget {
                                     children: [
                                       Center(
                                           child: ClipOval(
-                                        child: Text(location[index].name),
+                                        child: Image.network(
+                                            character[index].image),
                                       )),
                                       ListTileWidget(
-                                          title: 'Id:',
-                                          subtitle: location[index].id.toString()),
+                                          title: 'Status',
+                                          subtitle: character[index].status),
                                       ListTileWidget(
-                                          title: 'Type: ',
-                                          subtitle: location[index].type),
+                                          title: 'Species',
+                                          subtitle: character[index].species),
                                       ListTileWidget(
                                         title: 'Gender',
-                                        subtitle: location[index].dimension,
+                                        subtitle: character[index].gender,
                                       ),
-                                     
-                                    ]
-                                    )
-                                  )
-                                )
-                              )
-                            )
+                                      ListTileWidget(
+                                      title: 'Last known location:',
+                                      subtitle: character[index].location.name),
+                                  ListTileWidget(
+                                      title: 'Origin',
+                                      subtitle: character[index].origin.name)
+                                    ])))))
                 
                     ));
   }
