@@ -1,53 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:rickandmorty/models/character_model.dart';
-import 'package:rickandmorty/pages/character_page.dart';
-import 'package:rickandmorty/widgets/next_page.dart';
-import 'package:rickandmorty/widgets/rounded_status.dart';
-import 'character_info_card.dart';
+import 'package:rickandmorty/models/location_model.dart';
+
+import 'package:rickandmorty/widgets/location_info_card.dart';
 import 'package:favorite_button/favorite_button.dart';
+import 'package:rickandmorty/widgets/next_page_locations.dart';
 
 
-class CharacterInfo extends StatelessWidget {
-  const CharacterInfo({Key? key, required this.characters, required this.url})
+class LocationInfo extends StatelessWidget {
+  const LocationInfo({Key? key, required this.locations, required this.url })
       : super(key: key);
-  final List<CharacterModel> characters;
+  final List<LocationModel> locations;
   final String url;
 
   @override
   Widget build(BuildContext context) {
-    return charactertsAll(context, characters);
+    return locationsAll(context, locations);
   }
 
-  Widget charactertsAll(context, data) {
+  Widget locationsAll(context, data) {
     return Scaffold(
-      
         appBar: AppBar(
           title: const Text('Rick & Morty', style: TextStyle(color: Colors.white),),
           elevation: 3,
           centerTitle: true,
           backgroundColor: const Color(0xFF2F4368),
           actions: [
-            NextPage(
+            NextPageLocations(
               url: url,
-              character: data,
+              location: data,
             ),
           ],
         ),
         body: GridView(
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 580,
-              childAspectRatio: 5 / 2.9,
-              crossAxisSpacing: 10,
+              maxCrossAxisExtent: 480,
+              childAspectRatio: 3,
+              crossAxisSpacing: 60,
             ),
             children: <Widget>[
               for (var i = 0; i < data.length; i++)
-                infoCharacter(context, i, data)
+                infoLocationA(context, i, data)
             ]));
   }
 }
 
-Widget infoCharacter(context, i, data) {
-  List<CharacterModel> characters = data;
+Widget infoLocationA(context, i, data) {
+  List<LocationModel> locations = data;
   return Container(
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
     child: GestureDetector(
@@ -55,14 +53,14 @@ Widget infoCharacter(context, i, data) {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => CharacterInfoCard(
-                      character: data,
+                builder: (context) => LocationInfoCard(
+                      location: data,
                       index: i,
                     )));
       },
       child: FittedBox(
           child: ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: 300, minWidth: 550),
+              constraints: const BoxConstraints(minHeight: 100, minWidth: 550),
               child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
@@ -70,14 +68,6 @@ Widget infoCharacter(context, i, data) {
                   child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        ClipRRect(
-                          borderRadius: const BorderRadius.horizontal(
-                            right: Radius.circular(180)
-                          ),
-                          child: Image.network(
-                            characters[i].image,
-                          ),
-                        ),
                         Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Column(
@@ -89,26 +79,14 @@ Widget infoCharacter(context, i, data) {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          characters[i].name,
+                                        Text(locations[i].name,
                                           style: const TextStyle(
                                               fontSize: 29,
                                               fontWeight: FontWeight.w800,
                                               color: Colors.white),
                                         ),
-                                        Row(children: [
-                                          RoundedStatus(index: i, data: characters),
-                                          Padding(
-                                              padding:
-                                              const EdgeInsets.all(8.0),
-                                              child: Text(characters[i].status +' - ' +characters[i].species,
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 23
-                                                    ),
-                                              ))
-                                        ]), Text(
-                                          characters[i].location.name,
+                                        Text(
+                                          locations[i].type,
                                           style: const TextStyle(
                                               fontSize: 21,
                                               color: Colors.white,
@@ -123,7 +101,7 @@ Widget infoCharacter(context, i, data) {
                                                 endIndent: 100, //spacing at the end of divider
                                               ),
                                               StarButton(valueChanged: (_isFavorite) {
-                                                print('Is Favorite :'+characters[i].name+' $_isFavorite');
+                                                print('Is Favorite :'+locations[i].name+' $_isFavorite');
                                                 },
                                                 iconSize: 150,
                                               )

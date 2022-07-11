@@ -4,11 +4,8 @@ import 'package:http/http.dart' as http;
 
 import 'package:rickandmorty/models/character_model.dart';
 import 'package:rickandmorty/widgets/character_info.dart';
-import 'package:rickandmorty/widgets/list_title.dart';
-
 
 int? index;
-String? test;
 
 String url="https://rickandmortyapi.com/api/character";
 

@@ -2,18 +2,17 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:rickandmorty/models/character_model.dart';
+import 'package:rickandmorty/models/location_model.dart';
+import 'package:rickandmorty/widgets/location_info.dart';
 
-import 'character_info.dart';
-
-class NextPage extends StatelessWidget {
-  const NextPage({
+class NextPageLocations extends StatelessWidget {
+  const NextPageLocations({
     Key? key,
-    required this.character,
+    required this.location,
     required this.url,
   }) : super(key: key);
 
-  final List<CharacterModel> character;
+  final List<LocationModel> location;
   final String url;
 
   @override
@@ -31,17 +30,17 @@ class NextPage extends StatelessWidget {
       onPressed: () async {
         // final urlS = context.read<CharacterCubit>().getUrl();
         final response = await http.get(Uri.parse(url));
-        final decodeCharacter = json.decode(response.body);
-        final ulrUse = decodeCharacter['info']['next'];
-        final character = decodeCharacter['results']
-            .map<CharacterModel>((e) => CharacterModel.fromJson(e))
+        final decodeLocation = json.decode(response.body);
+        final ulrUse = decodeLocation['info']['next'];
+        final character = decodeLocation['results']
+            .map<LocationModel>((e) => LocationModel.fromJson(e))
             .toList();
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CharacterInfo(
+            builder: (context) => LocationInfo(
               url: ulrUse,
-              characters: character,
+              locations: character,
             ),
           ),
         );

@@ -5,7 +5,7 @@ class ListTileWidget extends StatelessWidget {
     Key? key,
     required this.title,
     required this.subtitle,
-    this.paddingI = 8,
+    this.paddingI = 5,
   }) : super(key: key);
   final String title;
   final String subtitle;
